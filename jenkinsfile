@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+    tools  {
+        maven  "maven3"
+    }
+    stages {
+        stage("Git Clone"){
+            steps {
+            git branch: 'samuel', url: 'https://github.com/samonclique/Ekart.git'
+            }
+        }
+        stage('Build and Test') {
+            steps {
+                sh '''
+                mvn clean
+                mvn test
+                mvn package
+                '''
+            }
+
+        }
+    }
+}
